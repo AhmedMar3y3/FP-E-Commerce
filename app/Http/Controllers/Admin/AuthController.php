@@ -46,4 +46,9 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->route('loginPage')->with('success', 'تم تسجيل الخروج بنجاح');
     }
+
+    public function dashboard()
+    {
+        return view('Admin.dashboard');
+    }
 }
