@@ -110,7 +110,7 @@
         <button type="button" id="add-size" class="btn btn-primary mb-3">إضافة حجم</button>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-success">تحديث</button>
+        <button type="submit" class="btn btn-success float-start">تحديث</button>
     </form>
 </div>
 
