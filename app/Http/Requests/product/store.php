@@ -32,6 +32,8 @@ class store extends FormRequest
             'sizes'          => 'required|array',
             'sizes.*'        => 'exists:sizes,id',
             'subcategory_id' => 'required|exists:sub_categories,id',
+            'images'         => 'nullable|array',
+            'images.*'       => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

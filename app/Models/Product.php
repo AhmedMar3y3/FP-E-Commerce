@@ -32,4 +32,10 @@ public function subcategory()
     return $this->belongsTo(SubCategory::class);
 
 }
+
+public function images()
+{
+    return $this->hasMany(ProductImage::class);
+}
+
 }

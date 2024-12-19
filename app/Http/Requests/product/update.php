@@ -32,6 +32,8 @@ class update extends FormRequest
             'sizes'          => 'nullable|array',
             'sizes.*'        => 'exists:sizes,id',
             'subcategory_id' => 'nullable|exists:sub_categories,id',
+            'images'         => 'nullable|array',
+            'images.*'       => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

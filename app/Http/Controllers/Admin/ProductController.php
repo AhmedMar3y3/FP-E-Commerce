@@ -29,15 +29,29 @@ class ProductController extends Controller
     }
 
     public function store(store $request)
-    {
+{
     $validatedData = $request->validated();
-
-    $product = Product::create($request->except(['colors', 'sizes']));
+    
+    $product = Product::create($request->except(['colors', 'sizes', 'images']));
     $product->colors()->sync($validatedData['colors']);
     $product->sizes()->sync($validatedData['sizes']);
+    
+    if ($request->has('images')) {
+        foreach ($request->file('images') as $image) {
+            $imagePath = $image->store('products', 'public');
+            $product->images()->create([
+                'image_url' => $imagePath,
+            ]);
 
-        return redirect()->route('products.index')->with('success', 'Product added successfully.');
+        }
+        // $product->images()->sync($validatedData['images']);
+
     }
+    
+    return redirect()->route('products.index')->with('success', 'Product added successfully.');
+}
+
+    
 
     public function edit(Product $product, $productId)
     {

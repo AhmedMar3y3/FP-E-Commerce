@@ -9,12 +9,12 @@
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
-    @endif
-    @if (session('error'))
+@endif
+@if (session('error'))
     <div class="alert alert-danger">
         {{ session('error') }}
     </div>
-    @endif
+@endif
         @csrf
 
         <!-- Product Details -->
@@ -24,7 +24,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="title" class="form-label">العنوان</label>
+            <label for="title" class="form-label">الاسم</label>
             <input type="text" name="title" class="form-control" value="{{ $product->title ?? '' }}" required>
         </div>
 
@@ -53,11 +53,16 @@
             </select>
         </div>
 
+           <!-- Image Upload Section -->
+    <div class="mb-3">
+        <label for="images" class="form-label">الصور</label>
+        <input type="file" name="images[]" class="form-control" accept="image/*" multiple>
+    </div>
+
         <!-- Colors Section -->
-        <h4>الألوان</h4>
+        <h4>الالوان</h4>
         <div id="colors-container">
             <div class="color-row mb-3">
-                <label for="color_0" class="form-label">اللون</label>
                 <div class="row g-2 align-items-center">
                     <div class="col-md-8">
                         <select name="colors[0]" id="color_0" class="form-select" required>
@@ -68,39 +73,38 @@
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <button type="button" class="btn btn-danger remove-color">إزالة</button>
+                        <button type="button" class="btn btn-danger remove-color">مسح</button>
                     </div>
                 </div>
             </div>
         </div>
-        <button type="button" id="add-color" class="btn btn-primary mb-3">إضافة لون</button>
+        <button type="button" id="add-color" class="btn btn-primary mb-3">اضافة</button>
 
         <!-- Sizes Section -->
-        <h4>الأحجام</h4>
+        <h4>المقاسات</h4>
         <div id="sizes-container">
             <div class="size-row mb-3">
-                <label for="size_0" class="form-label">الحجم</label>
                 <div class="row g-2 align-items-center">
                     <div class="col-md-8">
                         <select name="sizes[0]" id="size_0" class="form-select" required>
-                            <option value="" selected disabled>اختر حجم</option>
+                            <option value="" selected disabled>اختر مقاس</option>
                             @foreach ($sizes as $size)
                                 <option value="{{ $size->id }}">{{ $size->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <button type="button" class="btn btn-danger remove-size">إزالة</button>
+                        <button type="button" class="btn btn-danger remove-size">مسح</button>
                     </div>
                 </div>
             </div>
         </div>
-        <button type="button" id="add-size" class="btn btn-primary mb-3">إضافة حجم</button>
+        <button type="button" id="add-size" class="btn btn-primary mb-3">اضافة</button>
 
         <!-- Submit Button -->
+        <button type="submit" class="btn btn-success float-start">اضافة المنتج</button>
     </form>
 </div>
-<button type="submit" class="btn btn-success">إضافة</button>
 
 <script>
     // Colors
@@ -120,7 +124,7 @@
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <button type="button" class="btn btn-danger remove-color">إزالة</button>
+                    <button type="button" class="btn btn-danger remove-color">مسح</button>
                 </div>
             </div>
         `;
@@ -144,14 +148,14 @@
             <div class="row g-2 align-items-center">
                 <div class="col-md-8">
                     <select name="sizes[${sizeIndex}]" class="form-select" required>
-                        <option value="" selected disabled>اختر حجم</option>
+                        <option value="" selected disabled>اختر مقاس</option>
                         @foreach ($sizes as $size)
                             <option value="{{ $size->id }}">{{ $size->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <button type="button" class="btn btn-danger remove-size">إزالة</button>
+                    <button type="button" class="btn btn-danger remove-size">مسح</button>
                 </div>
             </div>
         `;
