@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\IndexController;
 
 //////////////////////////////////Admin Routes//////////////////////////////////
 
@@ -16,7 +17,7 @@ Route::post('/login-admin', [AuthController::class, 'loginUser'])->name('loginUs
 Route::middleware(['auth.admin'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout'); 
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('admin.dashboard');
-
+    
     // Categories
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
@@ -27,7 +28,7 @@ Route::middleware(['auth.admin'])->group(function () {
     // Sub-Categories
     Route::post('/subcategories', [SubCategoryController::class, 'store'])->name('subs.store');
     Route::delete('/delete-subcategory/{subcategory}', [SubCategoryController::class, 'destroy'])->name('subs.destroy');
-
+    
     // Products
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     // Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
@@ -36,7 +37,11 @@ Route::middleware(['auth.admin'])->group(function () {
     Route::get('/edit-product/{productId}', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/update-product/{productId}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/delete-product/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
-
+    
     // Route::resource('products', ProductController::class);
+    
+    
+    
+    
 
 });

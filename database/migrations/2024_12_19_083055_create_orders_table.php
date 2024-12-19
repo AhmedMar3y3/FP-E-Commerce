@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreign('color_id')->references('id')->on('color_product');
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->integer('quantity');
+            $table->bigInteger('size_id');
+            $table->enum('status', ['قيد الانتظار', 'تم الموافقة', 'تم التوصيل'])->default('قيد الانتظار');
             $table->timestamps();
         });
     }
