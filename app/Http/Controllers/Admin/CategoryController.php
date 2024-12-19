@@ -10,9 +10,10 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::where('admin_id', Auth('admin')->id())->get();
-        return view('admin.categories.index',compact('categories'));
+        $categories = Category::with('subs')->where('admin_id', Auth('admin')->id())->get();
+        return view('admin.categories.index', compact('categories'));
     }
+    
 
     public function create()
     {
@@ -20,18 +21,19 @@ class CategoryController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+    ]);
 
-        $category = new Category();
-        $category->name = $request->name;
-        $category->admin_id = Auth('admin')->id();
-        $category->save();
+    Category::create([
+        'name' => $request->name,
+        'admin_id' => auth('admin')->id(),
+    ]);
 
-        return redirect()->route('categories.index')->with('success', 'تم إنشاء الفئة بنجاح');
-    }
+    return redirect()->back()->with('success', 'تم إنشاء الفئة بنجاح.');
+}
+
 
     public function show(Category $category)
     {

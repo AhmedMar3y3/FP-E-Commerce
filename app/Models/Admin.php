@@ -15,4 +15,9 @@ class Admin extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }

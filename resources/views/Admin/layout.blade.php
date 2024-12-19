@@ -57,7 +57,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
   <div class="d-flex align-items-center justify-content-between">
     <a href="{{ route('admin.dashboard') }}" class="logo d-flex align-items-center">
-      <span class="d-none d-lg-block" style="margin-right: 15px; color: white;">الهرم الرابع</span>
+      <span class="d-none d-lg-block" style="margin-right: 15px; color: white;">{{ Auth::guard('admin')->user()->name }}</span>
     </a>
     <i class="bi bi-list toggle-sidebar-btn"></i>
   </div>
@@ -76,11 +76,23 @@
       <li class="nav-heading">الصفحات</li>
 
       <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('offices.index') ? 'active' : '' }}" href="{{ route('categories.index') }}">
-          <i class="bi bi-building"></i>
+        <a class="nav-link {{ request()->routeIs('categories.index') ? 'active' : '' }}" href="{{ route('categories.index') }}">
+            <i class="bi bi-tags"></i>
           <span>الفئات</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link {{ request()->routeIs('products.index') ? 'active' : '' }}" href="{{ route('products.index') }}">
+            <i class="bi bi-box"></i>
+          <span>المنتجات</span>
+        </a>
+      </li>
+      {{-- <li class="nav-item">
+        <a class="nav-link {{ request()->routeIs('subs.index') ? 'active' : '' }}" href="{{ route('subs.index') }}">
+          <i class="bi bi-building"></i>
+          <span>الفئات الفرعية</span>
+        </a>
+      </li> --}}
       
       <li class="nav-item">
         <form method="POST" action="{{ route('admin.logout') }}">
