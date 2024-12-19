@@ -117,14 +117,14 @@
             <div class="row g-2 align-items-center">
                 <div class="col-md-8">
                     <select name="colors[${colorIndex}]" class="form-select" required>
-                        <option value="" selected disabled>Select a Color</option>
+                        <option value="" selected disabled>اختر لون</option>
                         @foreach ($colors as $color)
                             <option value="{{ $color->id }}">{{ $color->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <button type="button" class="btn btn-danger remove-color">Remove</button>
+                    <button type="button" class="btn btn-danger remove-color">مسح</button>
                 </div>
             </div>
         `;
@@ -148,14 +148,14 @@
             <div class="row g-2 align-items-center">
                 <div class="col-md-8">
                     <select name="sizes[${sizeIndex}]" class="form-select" required>
-                        <option value="" selected disabled>Select a Size</option>
+                        <option value="" selected disabled>اختر مقاس</option>
                         @foreach ($sizes as $size)
                             <option value="{{ $size->id }}">{{ $size->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <button type="button" class="btn btn-danger remove-size">Remove</button>
+                    <button type="button" class="btn btn-danger remove-size">مسح</button>
                 </div>
             </div>
         `;
