@@ -38,15 +38,17 @@ class ProductController extends Controller
     
     if ($request->has('images')) {
         foreach ($request->file('images') as $image) {
-            $imagePath = $image->store('products', 'public');
-            $product->images()->create([
-                'image_url' => $imagePath,
-            ]);
-
+            try {
+                $imagePath = $image->store('products', 'public');
+                $product->images()->create([
+                    'image_url' => $imagePath,
+                ]);
+            } catch (\Exception $e) {
+                return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            }
         }
-        // $product->images()->sync($validatedData['images']);
-
     }
+    
     
     return redirect()->route('products.index')->with('success', 'Product added successfully.');
 }

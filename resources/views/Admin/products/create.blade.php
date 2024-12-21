@@ -3,18 +3,23 @@
 @section('main')
 <div class="container">
     <h1>إنشاء منتج</h1>
-    <form action="{{ route('products.store') }}" method="POST">
+    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
         
     @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
 @endif
-@if (session('error'))
+@if ($errors->any())
     <div class="alert alert-danger">
-        {{ session('error') }}
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
     </div>
 @endif
+
         @csrf
 
         <!-- Product Details -->
