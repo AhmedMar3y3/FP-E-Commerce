@@ -6,6 +6,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\Admin\AuthController as Admin;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\ReviewsController;
 
 Route::post('/register-admin', [Admin::class,'register']);
 
@@ -21,6 +22,7 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
     Route::get('/index-order', [OrdersController::class, 'index'])->name('index.all');
     Route::post('/store-order', [OrdersController::class, 'store'])->name('store.all');
     Route::delete('/delete-order/{id}', [OrdersController::class, 'destroy'])->name('delete.all');
+    Route::post('/store-RE', [ReviewsController::class, 'store']);
 });
 
 
