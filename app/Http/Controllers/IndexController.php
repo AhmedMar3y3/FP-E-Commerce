@@ -12,7 +12,7 @@ class IndexController extends Controller
 public function indexall(){
 
 
-$nn=Product::with(['colors','sizes'])->get();
+$nn=Product::with(['colors','sizes','images'])->get();
 return response()->json(['msg'=>$nn]);
 }
 

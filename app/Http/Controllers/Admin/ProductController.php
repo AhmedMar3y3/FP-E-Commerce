@@ -29,29 +29,34 @@ class ProductController extends Controller
     }
 
     public function store(store $request)
-{
-    $validatedData = $request->validated();
+    {
+        $validatedData = $request->validated();
     
-    $product = Product::create($request->except(['colors', 'sizes', 'images']));
-    $product->colors()->sync($validatedData['colors']);
-    $product->sizes()->sync($validatedData['sizes']);
+        if ($request->is_on_sale && (!$request->sale_price || $request->sale_price >= $request->price)) {
+            return redirect()->back()->withErrors(['sale_price' => 'Sale price must be less than the original price.']);
+        }
     
-    if ($request->has('images')) {
-        foreach ($request->file('images') as $image) {
-            try {
-                $imagePath = $image->store('products', 'public');
-                $product->images()->create([
-                    'image_url' => $imagePath,
-                ]);
-            } catch (\Exception $e) {
-                return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        $product = Product::create($request->except(['colors', 'sizes', 'images']));
+        $product->colors()->sync($validatedData['colors']);
+        $product->sizes()->sync($validatedData['sizes']);
+    
+        // Handle images
+        if ($request->has('images')) {
+            foreach ($request->file('images') as $image) {
+                try {
+                    $imagePath = $image->store('products', 'public');
+                    $product->images()->create([
+                        'image_url' => $imagePath,
+                    ]);
+                } catch (\Exception $e) {
+                    return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+                }
             }
         }
+    
+        return redirect()->route('products.index')->with('success', 'تم إضافة المنتج بنجاح.');
     }
     
-    
-    return redirect()->route('products.index')->with('success', 'Product added successfully.');
-}
 
     
 
@@ -67,22 +72,40 @@ class ProductController extends Controller
     }
     
     public function update(update $request, $productId)
-{
+    {
+        $product = Product::findOrFail($productId);
     
-    $product = Product::findOrFail($productId);
-    $data = $request->only(['brand', 'title', 'description', 'quantity', 'subcategory_id', 'price']);
-    $product->update($data);
-    $product->colors()->sync($request->colors);
-    $product->sizes()->sync($request->sizes);
-
-    return redirect()->route('products.index')->with('success', 'تم تحديث المنتج بنجاح.');
-}
-
+        if ($request->is_on_sale && (!$request->sale_price || $request->sale_price >= $request->price)) {
+            return redirect()->back()->withErrors(['sale_price' => 'Sale price must be less than the original price.']);
+        }
+    
+        $data = $request->only(['brand', 'title', 'description', 'quantity', 'price', 'is_on_sale', 'sale_price', 'subcategory_id']);
+        $product->update($data);
+        $product->colors()->sync($request->colors);
+        $product->sizes()->sync($request->sizes);
+    
+        // Handle images
+        if ($request->has('images')) {
+            foreach ($request->file('images') as $image) {
+                try {
+                    $imagePath = $image->store('products', 'public');
+                    $product->images()->create([
+                        'image_url' => $imagePath,
+                    ]);
+                } catch (\Exception $e) {
+                    return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+                }
+            }
+        }
+    
+        return redirect()->route('products.index')->with('success', 'تم تحديث المنتج بنجاح.');
+    }
+    
 
     public function destroy(Product $product)
     {
         $product->delete();
 
-        return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
+        return redirect()->route('products.index')->with('success', 'تم حذف المنتج بنجاح.');
     }
 }

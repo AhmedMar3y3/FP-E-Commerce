@@ -18,6 +18,8 @@ return new class extends Migration
             $table->text('description');
             $table->integer('quantity')->default(0);
             $table->decimal('price', 10, 2);
+            $table->boolean('is_on_sale')->default(false);
+            $table->decimal('sale_price', 10, 2)->nullable();
             $table->unsignedBigInteger('subcategory_id');
             $table->foreign('subcategory_id')->references('id')->on('sub_categories')->onDelete('cascade');
             $table->timestamps();

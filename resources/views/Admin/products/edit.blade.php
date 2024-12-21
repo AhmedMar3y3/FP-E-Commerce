@@ -3,7 +3,7 @@
 @section('main')
 <div class="container">
     <h1>تعديل المنتج</h1>
-    <form action="{{ route('products.update', $product->id) }}" method="POST">
+    <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
         @method('PUT')
         @csrf
 
@@ -55,6 +55,26 @@
                 @endforeach
             </select>
         </div>
+
+        <div class="mb-3">
+            <label for="is_on_sale" class="form-label">هل المنتج في تخفيض؟</label>
+            <select name="is_on_sale" id="is_on_sale" class="form-select">
+                <option value="0" {{ !$product->is_on_sale ? 'selected' : '' }}>لا</option>
+                <option value="1" {{ $product->is_on_sale ? 'selected' : '' }}>نعم</option>
+            </select>
+        </div>
+        
+        <div class="mb-3 sale-price-wrapper" style="{{ $product->is_on_sale ? '' : 'display: none;' }}">
+            <label for="sale_price" class="form-label">سعر التخفيض</label>
+            <input type="number" name="sale_price" id="sale_price" step="0.01" class="form-control" value="{{ $product->sale_price }}">
+        </div>
+        
+        <div class="mb-3">
+            <label for="images" class="form-label">الصور</label>
+            <input type="file" name="images[]" class="form-control" accept="image/*" multiple>
+        </div>
+        
+        
 
         <!-- Colors Section -->
         <h4>الألوان</h4>
@@ -113,6 +133,19 @@
         <button type="submit" class="btn btn-success float-start">تحديث</button>
     </form>
 </div>
+
+<script>
+    document.getElementById('is_on_sale').addEventListener('change', function () {
+        const salePriceWrapper = document.querySelector('.sale-price-wrapper');
+        if (this.value === '1') {
+            salePriceWrapper.style.display = '';
+        } else {
+            salePriceWrapper.style.display = 'none';
+            document.getElementById('sale_price').value = '';
+        }
+    });
+</script>
+
 
 <script>
     // JavaScript for dynamically adding/removing color and size options

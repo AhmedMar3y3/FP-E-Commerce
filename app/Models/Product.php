@@ -15,8 +15,14 @@ class Product extends Model
         'description',
         'quantity',
         'price',
+        'is_on_sale',
+        'sale_price',
         'subcategory_id',
     ];
+
+    public function admin(){
+        return $this->belongsTo(Admin::class);
+    }
 
     public function colors()
 {
