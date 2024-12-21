@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\Admin\AuthController as Admin;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\OrdersController;
 
 Route::post('/register-admin', [Admin::class,'register']);
 
@@ -17,7 +18,9 @@ Route::post('/reset-password', [AuthController::class,'resetPassword']);
 //protected 
 Route::group(['middleware'=>['auth:sanctum']], function(){
     Route::post('/logout', [AuthController::class,'logout']);
-    Route::get('/in', [IndexController::class, 'indexall'])->name('index.all');
+    Route::get('/index-order', [OrdersController::class, 'index'])->name('index.all');
+    Route::post('/store-order', [OrdersController::class, 'store'])->name('store.all');
+    Route::delete('/delete-order/{id}', [OrdersController::class, 'destroy'])->name('delete.all');
 });
 
 
