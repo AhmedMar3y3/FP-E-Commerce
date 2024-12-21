@@ -15,7 +15,6 @@ class ReviewsController extends Controller
 //____________________________________________________________________________________________________________
 public function store(createReview $request)
 {
-
     $validatedData = $request->validated();
     $order= Orders::find($validatedData['order_id']);
 
