@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\Admin\AuthController as Admin;
-
+use App\Http\Controllers\IndexController;
 
 Route::post('/register-admin', [Admin::class,'register']);
 
@@ -17,5 +17,9 @@ Route::post('/reset-password', [AuthController::class,'resetPassword']);
 //protected 
 Route::group(['middleware'=>['auth:sanctum']], function(){
     Route::post('/logout', [AuthController::class,'logout']);
+    Route::get('/in', [IndexController::class, 'indexall'])->name('index.all');
 });
+
+
+
 
