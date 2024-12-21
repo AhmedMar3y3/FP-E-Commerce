@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->phone;
     }
+
+
+    public function order(){
+        return $this->hasMany(Orders::class);
+    }
 }

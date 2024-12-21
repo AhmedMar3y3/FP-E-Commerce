@@ -17,4 +17,12 @@ class Size extends Model
 {
     return $this->belongsToMany(Product::class, 'size_product');
 }
+
+
+public function order()
+{
+    return $this->belongsTo(Orders::class);
+
+}
+
 }

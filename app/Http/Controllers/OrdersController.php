@@ -2,57 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Color;
-use App\Models\Order;
+use App\Models\Orders;
+use App\Models\Size;
+use App\Http\Requests\CreateOrder;
 
 class OrdersController extends Controller
 {
-//_____________________________________________________________________________________________________
+    //_____________________________________________________________________________________________________
     public function index()
     {
-        $user=Auth::user();
-        $order=Order::where('id',$user->id)->first();
-        return view('')
-    }
+        $user = Auth::user();
+        $orders = Orders::where('user_id', $user->id)->get();
 
-//____________________________________________________________________________________________________________
-    public function create()
-    {
-        //
+        return response()->json(['orders' => $orders]);
     }
+    //____________________________________________________________________________________________________________
+    public function store(CreateOrder $request)
+    {
+        $validatedData = $request->validated();
 
-//_________________________________________________________________________________________________________
-    public function store(Request $request)
-    {
-        //
-    }
+        $validatedData['user_id'] = Auth::id(); 
+        $order = Orders::create($validatedData);
 
-//____________________________________________________________________________________________________________
-    public function show(string $id)
-    {
-        //
+        return response()->json(['msg' => 'Order created successfully', 'order' => $order]);
     }
-
-//____________________________________________________________________________________________________________
-    public function edit(string $id)
-    {
-        //
-    }
-
-//____________________________________________________________________________________________________________
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-//____________________________________________________________________________________________________________
+    //____________________________________________________________________________________________________________
     public function destroy(string $id)
     {
-        //
-    }
+        $order = Orders::findOrFail($id);
 
-//____________________________________________________________________________________________________________
+        if ($order->user_id !== Auth::id()) {
+            return response()->json(['msg' => 'Unauthorized']);
+        }
+
+        $order->delete();
+
+        return response()->json(['msg' => 'Order deleted successfully']);
+    }
 }

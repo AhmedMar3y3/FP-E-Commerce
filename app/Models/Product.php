@@ -32,6 +32,11 @@ public function subcategory()
     return $this->belongsTo(SubCategory::class);
 
 }
+public function order()
+{
+    return $this->belongsTo(Orders::class);
+
+}
 
 public function images()
 {
