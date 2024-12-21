@@ -57,7 +57,19 @@
                 @endforeach
             </select>
         </div>
-
+        <div class="mb-3">
+            <label for="is_on_sale" class="form-label">هل المنتج في تخفيض؟</label>
+            <select name="is_on_sale" id="is_on_sale" class="form-select">
+                <option value="0" selected>لا</option>
+                <option value="1">نعم</option>
+            </select>
+        </div>
+        
+        <div class="mb-3 sale-price-wrapper" style="display: none;">
+            <label for="sale_price" class="form-label">سعر التخفيض</label>
+            <input type="number" name="sale_price" id="sale_price" step="0.01" class="form-control" value="">
+        </div>
+               
            <!-- Image Upload Section -->
     <div class="mb-3">
         <label for="images" class="form-label">الصور</label>
@@ -110,6 +122,18 @@
         <button type="submit" class="btn btn-success float-start">اضافة المنتج</button>
     </form>
 </div>
+<script>
+    document.getElementById('is_on_sale').addEventListener('change', function () {
+        const salePriceWrapper = document.querySelector('.sale-price-wrapper');
+        if (this.value === '1') {
+            salePriceWrapper.style.display = '';
+        } else {
+            salePriceWrapper.style.display = 'none';
+            document.getElementById('sale_price').value = '';
+        }
+    });
+</script>
+
 
 <script>
     // Colors

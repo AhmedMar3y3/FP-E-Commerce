@@ -87,12 +87,12 @@
           <span>المنتجات</span>
         </a>
       </li>
-      {{-- <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('subs.index') ? 'active' : '' }}" href="{{ route('subs.index') }}">
-          <i class="bi bi-building"></i>
-          <span>الفئات الفرعية</span>
+      <li class="nav-item">
+        <a class="nav-link {{ request()->routeIs('orders.index') ? 'active' : '' }}" href="{{ route('orders.index') }}">
+          <i class="bi bi-cart"></i>
+          <span>الطلبات</span>
         </a>
-      </li> --}}
+      </li>
       
       <li class="nav-item">
         <form method="POST" action="{{ route('admin.logout') }}">

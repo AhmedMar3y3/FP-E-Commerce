@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\IndexController;
+use App\Http\Controllers\Admin\OrderController;
 
 //////////////////////////////////Admin Routes//////////////////////////////////
 
@@ -31,15 +31,18 @@ Route::middleware(['auth.admin'])->group(function () {
     
     // Products
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-    // Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+    Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
     Route::get('/create-product', [ProductController::class, 'create'])->name('products.create');
     Route::post('/store-product', [ProductController::class, 'store'])->name('products.store');
     Route::get('/edit-product/{productId}', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/update-product/{productId}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/delete-product/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
     
-    // Route::resource('products', ProductController::class);
-    
+    // Orders
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/accept-order/{id}', [OrderController::class, 'acceptOrder'])->name('orders.accept');
+    Route::get('/reject-order/{id}', [OrderController::class, 'rejectOrder'])->name('orders.reject');
+    Route::get('/delivery-order/{id}', [OrderController::class, 'deliveryOrder'])->name('orders.delivery');    
     
     
     

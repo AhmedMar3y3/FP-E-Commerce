@@ -27,6 +27,8 @@ class store extends FormRequest
             'description'    => 'nullable|string',
             'quantity'       => 'required|integer',
             'price'          => 'required|numeric',
+            'is_on_sale'     => 'nullable|boolean',
+            'sale_price'     => 'nullable|numeric',
             'colors'         => 'required|array',
             'colors.*'       => 'exists:colors,id',
             'sizes'          => 'required|array',

@@ -29,6 +29,7 @@
                     <td>${{ $product->price }}</td>
                     <td>{{ $product->quantity }}</td>
                     <td>
+                        <a href="{{ route('products.show', $product->id) }}" class="btn btn-info btn-sm">عرض</a>
                         <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning btn-sm">تعديل</a>
                         <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: inline;">
                             @csrf
