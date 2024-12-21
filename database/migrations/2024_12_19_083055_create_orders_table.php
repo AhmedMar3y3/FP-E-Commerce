@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->bigInteger('size_id');
             $table->enum('status', ['قيد الانتظار', 'تم الموافقة', 'تم التوصيل'])->default('قيد الانتظار');
-            $table->timestamps();
+            $table->timestamps(); 
         });
     }
 
