@@ -19,6 +19,12 @@ class ProductController extends Controller
         return view('Admin.products.index', compact('products'));
     }
 
+    public function show(Product $product)
+    {
+        $product = Product::with(['colors', 'sizes', 'subcategory'])->findOrFail($product->id);
+        return view('Admin.products.show', compact('product'));
+    }
+
     public function create()
     {
         $subcategories = SubCategory::all();
