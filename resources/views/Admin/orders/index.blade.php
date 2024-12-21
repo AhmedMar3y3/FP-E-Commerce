@@ -32,9 +32,9 @@
                         </td>
                         <td>{{ $order->address }}</td>
                         <td>
-                            <strong>المنتج:</strong> {{ $order->products->title}} <br>
-                            <strong>اللون:</strong> {{ $order->products->colors->name }} <br>
-                            <strong>المقاس:</strong> {{ $order->products->sizes->name }}
+                            <strong>المنتج:</strong> {{ $order->product->title}} <br>
+                            <strong>اللون:</strong> {{ $order->color->name }} <br>
+                            <strong>المقاس:</strong> {{ $order->size->name }}
                         </td>
                         <td>{{ $order->status }}</td>
                         <td>
