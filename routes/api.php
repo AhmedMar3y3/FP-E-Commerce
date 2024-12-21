@@ -19,10 +19,15 @@ Route::post('/reset-password', [AuthController::class,'resetPassword']);
 //protected 
 Route::group(['middleware'=>['auth:sanctum']], function(){
     Route::post('/logout', [AuthController::class,'logout']);
+//___________________________________________Orders_____________________________________________________________
     Route::get('/index-order', [OrdersController::class, 'index'])->name('index.all');
     Route::post('/store-order', [OrdersController::class, 'store'])->name('store.all');
     Route::delete('/delete-order/{id}', [OrdersController::class, 'destroy'])->name('delete.all');
+//______________________________________________Reviews__________________________________________________________
     Route::post('/store-RE', [ReviewsController::class, 'store']);
+    Route::get('/show-RE/{id}', [ReviewsController::class, 'show']);
+    Route::delete('/delete-RE/{id}', [ReviewsController::class, 'destroy']);
+//________________________________________________________________________________________________________________
 });
 
 
